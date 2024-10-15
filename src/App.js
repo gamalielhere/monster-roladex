@@ -1,6 +1,8 @@
 import { Component } from "react";
 
 import "./App.css";
+import CardListComponent from "./components/card-list/CardListComponent";
+import SearchInputComponent from "./components/search-input/SearchInputComponent";
 
 class App extends Component {
   constructor() {
@@ -9,23 +11,16 @@ class App extends Component {
       monsters: [],
       searchField: "",
     };
-    console.log("constructor");
   }
 
   // lifecycle method
   componentDidMount() {
-    console.log("componentDidMount");
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((users) =>
-        this.setState(
-          () => {
-            return { monsters: users };
-          },
-          () => {
-            console.log(this.state);
-          }
-        )
+        this.setState(() => {
+          return { monsters: users };
+        })
       );
   }
 
@@ -51,31 +46,29 @@ class App extends Component {
   //   );
   // }
 
+  // create a function outside of the render
+  // so the function doesn't get rendered over
+  // and over when the component is rendered
+  onSearchChange = (e) => {
+    this.setState(() => {
+      return { searchField: e.target.value };
+    });
+  };
+
   render() {
-    const monstersCopy = this.state.monsters.slice();
+    // destructure so its easier to read
+    const { monsters, searchField } = this.state;
+    const { onSearchChange } = this;
+    const monstersCopy = monsters.slice();
     const filtered = monstersCopy.filter((monster) => {
-      return this.state.searchField
-        ? monster.name.toLowerCase().includes(this.state.searchField)
+      return searchField
+        ? monster.name.toLowerCase().includes(searchField.toLowerCase())
         : monster;
     });
     return (
       <div className="App">
-        <input
-          className="search-box"
-          type="search"
-          placeholder="search monsters"
-          onChange={(e) => {
-            console.log(e.target.value);
-            this.setState(() => {
-              return { searchField: e.target.value };
-            });
-          }}
-        />
-        {filtered.map((monster, idx) => (
-          <div key={idx + monster.id}>
-            <h1>{monster.name}</h1>
-          </div>
-        ))}
+        <SearchInputComponent onSearchChange={onSearchChange} />
+        <CardListComponent monsters={filtered} />
       </div>
     );
   }
