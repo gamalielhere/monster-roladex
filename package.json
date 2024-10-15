@@ -1,7 +1,7 @@
 {
   "name": "ztm-react-code-along",
   "version": "0.1.0",
-  "homepage": "https://gamalielhere.github.io/monster-rolodex",
+  "homepage": "https://gamalielhere.github.io/monster-roladex",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -13,8 +13,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b gh-pages -d build",
+    "predeploy": "yarn run build && yarn clean",
+    "clean": "node node_modules/gh-pages/bin/gh-pages-clean.js",
+    "deploy": "gh-pages -b gh-pages -d build  --cname gamalielpadillo.com",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
