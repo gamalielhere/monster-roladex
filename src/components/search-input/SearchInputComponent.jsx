@@ -7,7 +7,7 @@ class SearchInputComponent extends Component {
     const { onSearchChange, classList } = this.props;
     return (
       <input
-        // type="search"
+        type="search"
         placeholder="search monsters"
         className={`search-box ${classList}`}
         onChange={onSearchChange}
