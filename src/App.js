@@ -25,7 +25,6 @@ const App = () => {
       .then((response) => response.json())
       .then((users) => setMonsters(users));
   }, []); // use effect will only run once when there's no dependencies
-
   useEffect(() => {
     const filtered = searchField
       ? monsters.filter((monster) =>
