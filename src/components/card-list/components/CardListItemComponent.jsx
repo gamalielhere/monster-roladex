@@ -1,7 +1,6 @@
 import "./CardListItemComponent.styles.css";
-
-const CardListItemComponent = ({ monster, idx }) => {
-  const { name, id, email } = monster;
+// interesting deeper destructuring
+const CardListItemComponent = ({ monster: { name, id, email }, idx }) => {
   return (
     <div key={idx + id}>
       <div className="card-container">
